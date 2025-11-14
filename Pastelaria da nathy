@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Pastelaria da Nathy</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #ffe6f2;
+        color: #333;
+        padding: 20px;
+    }
+
+    h2, h3 {
+        color: #d63384;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .card {
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: 2px solid #ffb3d9;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 12px;
+        border-radius: 12px;
+        border: none;
+        background: #ff4da6;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #ff1a8c;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 15px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    table th {
+        background: #ffb3d9;
+        color: #333;
+        padding: 12px;
+    }
+
+    table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ffd6eb;
+    }
+
+    .pago {
+        color: #2eb82e;
+        font-weight: bold;
+    }
+
+    .pendente {
+        color: #e6005c;
+        font-weight: bold;
+    }
+
+    .btn-excluir {
+        background: #ff1a8c;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .btn-excluir:hover {
+        background: #cc0066;
+    }
+</style>
+</head>
+<body>
+
+<h2>🌸 Pastelaria da Nathy 🌸</h2>
+
+<div class="card">
+    <h3>Adicionar Pedido</h3>
+
+    <input id="nome" type="text" placeholder="Nome do cliente">
+    <input id="valor" type="number" placeholder="Valor total (R$)">
+    
+    <select id="status">
+        <option value="Pago">Pago</option>
+        <option value="Pendente">Pendente</option>
+    </select>
+
+    <button onclick="adicionarPedido()">Adicionar Pedido</button>
+</div>
+
+<h3>Lista de Pedidos</h3>
+
+<table id="tabela">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div class="card">
+    <h3>Resumo</h3>
+    <p>Total Pago: <b id="totalPago">R$0</b></p>
+    <p>Total Pendente: <b id="totalPendente">R$0</b></p>
+    <p>Total Geral: <b id="totalGeral">R$0</b></p>
+</div>
+
+<script>
+    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+    function salvar() {
+        localStorage.setItem("pedidos", JSON.stringify(pedidos));
+    }
+
+    function atualizarTabela() {
+        const tbody = document.querySelector("#tabela tbody");
+        tbody.innerHTML = "";
+
+        let totalPago = 0;
+        let totalPendente = 0;
+
+        pedidos.forEach((p, i) => {
+            let tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${p.nome}</td>
+                <td>R$${p.valor}</td>
+                <td class="${p.status === 'Pago' ? 'pago' : 'pendente'}">${p.status}</td>
+                <td><button class="btn-excluir" onclick="excluir(${i})">X</button></td>
+            `;
+
+            tbody.appendChild(tr);
+
+            if (p.status === "Pago") totalPago += Number(p.valor);
+            else totalPendente += Number(p.valor);
+        });
+
+        document.getElementById("totalPago").innerText = "R$" + totalPago;
+        document.getElementById("totalPendente").innerText = "R$" + totalPendente;
+        document.getElementById("totalGeral").innerText = "R$" + (totalPago + totalPendente);
+    }
+
+    function adicionarPedido() {
+        const nome = document.getElementById("nome").value;
+        const valor = document.getElementById("valor").value;
+        const status = document.getElementById("status").value;
+
+        if (!nome || !valor) {
+            alert("Preencha o nome e o valor!");
+            return;
+        }
+
+        pedidos.push({ nome, valor, status });
+        salvar();
+        atualizarTabela();
+
+        document.getElementById("nome").value = "";
+        document.getElementById("valor").value = "";
+    }
+
+    function excluir(i) {
+        pedidos.splice(i, 1);
+        salvar();
+        atualizarTabela();
+    }
+
+    atualizarTabela();
+</script>
+
+</body>
+</html>
