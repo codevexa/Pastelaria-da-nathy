@@ -1,1 +1,628 @@
-https://script.google.com/macros/s/AKfycbxf3FwD7zlIZYqxIFm9_J21A5GOY8ssP0qdWRaBmCZSP3Z7tODpJL01vdZbEHZhPBCk/exec
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TROPA CLN - Academy Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #090909;
+            --bg-card: #151515;
+            --green-neon: #00ff3c;
+            --green-dark: #00801e;
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: rgba(9, 9, 9, 0.95);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid var(--green-dark);
+            box-shadow: 0 0 10px rgba(0, 255, 60, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--green-neon);
+            text-shadow: 0 0 5px var(--green-neon);
+        }
+
+        /* Hero / Home */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            background: radial-gradient(circle at center, #111 0%, var(--bg-dark) 100%);
+        }
+
+        #home h1 {
+            font-size: 4rem;
+            color: var(--green-neon);
+            text-shadow: 0 0 15px rgba(0, 255, 60, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .guild-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-box {
+            background-color: var(--bg-card);
+            padding: 1rem 2rem;
+            border: 1px solid var(--green-dark);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+
+        .stat-box h3 {
+            color: var(--green-neon);
+            font-size: 1.5rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            color: var(--green-neon);
+            border: 2px solid var(--green-neon);
+            box-shadow: 0 0 10px rgba(0, 255, 60, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--green-neon);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(0, 255, 60, 0.6);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-instagram:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(220, 39, 67, 0.5);
+        }
+
+        /* General Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--green-neon);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 60, 0.3);
+        }
+
+        .text-center { text-align: center; }
+
+        /* Estrutura Grid */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--green-neon);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 60, 0.1);
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--green-neon);
+            margin-bottom: 1rem;
+        }
+
+        /* Lista Simples (Rotina, Cargos, Regras) */
+        .list-container {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .list-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item strong {
+            color: var(--green-neon);
+            min-width: 150px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        /* Regras */
+        .rules-list {
+            list-style: none;
+        }
+
+        .rules-list li {
+            padding: 1rem;
+            background-color: var(--bg-card);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--green-neon);
+        }
+
+        /* Membros */
+        .members-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .member-card {
+            text-align: center;
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            width: 250px;
+        }
+
+        .member-card .role {
+            color: var(--green-neon);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        /* Formulário de Recrutamento */
+        .form-container {
+            background-color: var(--bg-card);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid var(--green-dark);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            color: var(--green-neon);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--bg-dark);
+            border: 1px solid #333;
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green-neon);
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #050505;
+            border-top: 1px solid #222;
+            margin-top: 2rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #home h1 { font-size: 3rem; }
+            nav ul { gap: 1rem; font-size: 0.9rem; }
+            .list-item { flex-direction: column; align-items: flex-start; }
+            .list-item strong { margin-bottom: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Início</a></li>
+            <li><a href="#visao">Visão</a></li>
+            <li><a href="#estrutura">Estrutura</a></li>
+            <li><a href="#rotina">Rotina</a></li>
+            <li><a href="#cargos">Cargos & Regras</a></li>
+            <li><a href="#recrutamento">Recrutamento</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <h1>TROPA CLN<br><span style="color: #fff; font-size: 2.5rem;">Academy Oficial</span></h1>
+        <p>Guilda competitiva de Free Fire focada em evolução, organização e desenvolvimento de jogadores rumo ao topo.</p>
+        
+        <div class="guild-stats">
+            <div class="stat-box">
+                <i class="fa-solid fa-shield-halved" style="color: var(--green-neon); font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                <h3>Level 7</h3>
+                <p>Guilda</p>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-crown" style="color: var(--green-neon); font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                <h3>CLN Jotah</h3>
+                <p>Líder</p>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-user-shield" style="color: var(--green-neon); font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                <h3>CLN Stan</h3>
+                <p>Vice-líder</p>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <a href="#recrutamento" class="btn btn-primary"><i class="fa-solid fa-crosshairs"></i> Entrar no Recrutamento</a>
+            <a href="https://instagram.com/clnff13_" target="_blank" class="btn btn-instagram"><i class="fa-brands fa-instagram"></i> Instagram Oficial</a>
+        </div>
+    </header>
+
+    <section id="visao">
+        <div class="text-center">
+            <h2 class="section-title">Visão do Projeto</h2>
+            <p style="max-width: 800px; margin: 0 auto 2rem; font-size: 1.2rem; color: var(--text-muted);">
+                Transformar a TROPA CLN em uma Academy estruturada dentro do Free Fire, focada no desenvolvimento competitivo de jogadores com potencial.
+            </p>
+        </div>
+        
+        <div class="grid-cards" style="margin-top: 3rem;">
+            <div class="card text-center">
+                <i class="fa-solid fa-crosshairs"></i>
+                <h3>Guerra de Guildas</h3>
+                <p>Organização e força para dominar as metas de guerra.</p>
+            </div>
+            <div class="card text-center">
+                <i class="fa-solid fa-gamepad"></i>
+                <h3>X-Treinos</h3>
+                <p>Treinamentos diários para melhorar mecânica e call.</p>
+            </div>
+            <div class="card text-center">
+                <i class="fa-solid fa-trophy"></i>
+                <h3>Campeonatos</h3>
+                <p>Inserção em torneios amadores para ganhar experiência.</p>
+            </div>
+            <div class="card text-center">
+                <i class="fa-solid fa-users"></i>
+                <h3>Formação de Squads</h3>
+                <p>Criação de lines competitivas com base em sinergia.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="estrutura">
+        <div class="text-center">
+            <h2 class="section-title">Estrutura da Academy</h2>
+        </div>
+        <div class="grid-cards">
+            <div class="card">
+                <h3>Comunidade</h3>
+                <p>Espaço para novos jogadores e os nossos 40 mil seguidores da guilda interagirem.</p>
+            </div>
+            <div class="card">
+                <h3>Competitivo</h3>
+                <p>Foco total em X-Treinos, campeonatos internos e simulados de alto nível.</p>
+            </div>
+            <div class="card">
+                <h3>Guerra de Guildas</h3>
+                <p>Organização estratégica e batimento de metas semanais com todos os membros.</p>
+            </div>
+            <div class="card">
+                <h3>Mídia</h3>
+                <p>Transmissões ao vivo, clipadas e divulgação de jogadores e squads no Instagram.</p>
+            </div>
+            <div class="card">
+                <h3>Progressão</h3>
+                <p>Sistema de evolução interna baseado unicamente no desempenho e dedicação.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rotina">
+        <div class="text-center">
+            <h2 class="section-title">Rotina Semanal</h2>
+        </div>
+        <div class="list-container">
+            <div class="list-item">
+                <strong>Segunda-feira</strong>
+                <span>X-Treino 4x4 – Foco em comunicação e trocação.</span>
+            </div>
+            <div class="list-item">
+                <strong>Terça-feira</strong>
+                <span>Treino tático – Posicionamento em mapa e uso de gel.</span>
+            </div>
+            <div class="list-item">
+                <strong>Quarta-feira</strong>
+                <span>X-Treino avançado – Rush coordenado em equipe.</span>
+            </div>
+            <div class="list-item">
+                <strong>Quinta-feira</strong>
+                <span>Treino estratégico – Call geral e movimentação de safe.</span>
+            </div>
+            <div class="list-item">
+                <strong>Sexta-feira</strong>
+                <span>Simulado de campeonato + Foco total na Guerra de Guildas.</span>
+            </div>
+            <div class="list-item">
+                <strong>Sábado</strong>
+                <span style="color: var(--text-muted);">Livre / Descanso</span>
+            </div>
+            <div class="list-item">
+                <strong>Domingo</strong>
+                <span style="color: var(--text-muted);">Livre / Descanso</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="cargos">
+        <div class="text-center">
+            <h2 class="section-title">Sistema de Cargos</h2>
+        </div>
+        <div class="grid-cards">
+            <div class="card"><h3 style="color: var(--green-neon);">Líder Academy</h3><p>Responsável geral pela gestão e estratégia da guilda.</p></div>
+            <div class="card"><h3 style="color: var(--green-neon);">Capitão</h3><p>Organiza squads e coordena treinos no campo de batalha.</p></div>
+            <div class="card"><h3 style="color: var(--green-neon);">Analista</h3><p>Avalia desempenho e estatísticas dos jogadores.</p></div>
+            <div class="card"><h3 style="color: var(--green-neon);">Elite Academy</h3><p>Top jogadores com o melhor desempenho mensal.</p></div>
+            <div class="card"><h3 style="color: var(--green-neon);">Player Ativo</h3><p>Membro oficial que participa dos treinos e atividades.</p></div>
+            <div class="card"><h3 style="color: var(--green-neon);">Recruta</h3><p>Jogador aprovado em período inicial de avaliação.</p></div>
+        </div>
+    </section>
+
+    <section id="regras">
+        <div class="text-center">
+            <h2 class="section-title">Regras Internas</h2>
+        </div>
+        <ul class="rules-list">
+            <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--green-neon);"></i> Cumprimento da meta mínima obrigatória na Guerra de Guildas.</li>
+            <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--green-neon);"></i> Participação em, no mínimo, 2 treinos por semana com o squad.</li>
+            <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--green-neon);"></i> Respeito absoluto durante as calls (sem áudio vazado ou gritaria).</li>
+            <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--green-neon);"></i> Proibido qualquer comportamento tóxico, preconceituoso ou que cause desunião.</li>
+            <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--green-neon);"></i> Compromisso real com a própria evolução competitiva.</li>
+        </ul>
+    </section>
+
+    <section id="membros">
+        <div class="text-center">
+            <h2 class="section-title">Gestão e Membros</h2>
+        </div>
+        <div class="members-grid">
+            <div class="member-card">
+                <i class="fa-solid fa-user-tie" style="font-size: 3rem; color: #fff; margin-bottom: 1rem;"></i>
+                <h2>CLN Jotah</h2>
+                <p class="role">Líder / CEO</p>
+                <p style="font-family: monospace; margin-top: 0.5rem; color: var(--text-muted);">ID: 86531091</p>
+            </div>
+            <div class="member-card">
+                <i class="fa-solid fa-user-gear" style="font-size: 3rem; color: #fff; margin-bottom: 1rem;"></i>
+                <h2>CLN Stan</h2>
+                <p class="role">Vice-líder / Recrutador</p>
+                <p style="font-family: monospace; margin-top: 0.5rem; color: var(--text-muted);">ID: 256305107</p>
+            </div>
+            </div>
+    </section>
+
+    <section id="recrutamento">
+        <div class="text-center">
+            <h2 class="section-title">Painel de Recrutamento</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">⚠️ Este formulário é exclusivo para jogadores que já estão no grupo de recrutamento da CLN.</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="recruitmentForm" onsubmit="enviarWhatsApp(event)">
+                <div class="form-group">
+                    <label>Nick no jogo</label>
+                    <input type="text" id="nick" required placeholder="Ex: CLN FULANO">
+                </div>
+                
+                <div class="form-group">
+                    <label>ID do Jogador</label>
+                    <input type="number" id="idJogador" required placeholder="Seu ID numérico do Free Fire">
+                </div>
+
+                <div class="form-group">
+                    <label>Idade</label>
+                    <input type="number" id="idade" required placeholder="Sua idade">
+                </div>
+
+                <div class="form-group">
+                    <label>Patente Atual</label>
+                    <select id="patente" required>
+                        <option value="">Selecione...</option>
+                        <option value="Mestre ou superior">Mestre ou superior</option>
+                        <option value="Diamante">Diamante</option>
+                        <option value="Platina">Platina</option>
+                        <option value="Ouro ou inferior">Ouro ou inferior</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Função Principal no Time</label>
+                    <select id="funcao" required>
+                        <option value="">Selecione...</option>
+                        <option value="Rush">Rush (Linha de frente)</option>
+                        <option value="Suporte">Suporte</option>
+                        <option value="Sniper">Sniper (AWM)</option>
+                        <option value="Flex">Flex (Joga em várias posições)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Horas de jogo diárias</label>
+                    <input type="number" id="horas" required placeholder="Quantas horas joga por dia?">
+                </div>
+
+                <div class="form-group">
+                    <label>Experiência Competitiva</label>
+                    <select id="experiencia" required>
+                        <option value="">Selecione...</option>
+                        <option value="Nenhuma">Nenhuma, quero começar agora</option>
+                        <option value="Pouca">Já joguei alguns X-Treinos</option>
+                        <option value="Média">Jogo X-Treinos e campeonatos amadores</option>
+                        <option value="Avançada">Já ganhei títulos em amadores/semi-pro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descrição do Estilo de Jogo</label>
+                    <textarea id="estilo" rows="3" required placeholder="Descreva como você joga (Ex: Jogo recuado, prefiro dar call, sou agressivo, etc)"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-btn"><i class="fa-brands fa-whatsapp"></i> Enviar Ficha para o Recrutador</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TROPA CLN Academy Oficial. Todos os direitos reservados.</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Desenvolvido para e-sports competitivos.</p>
+    </footer>
+
+    <script>
+        function enviarWhatsApp(event) {
+            event.preventDefault(); // Evita que a página recarregue
+
+            // Captura os dados do formulário
+            const nick = document.getElementById('nick').value;
+            const idJogador = document.getElementById('idJogador').value;
+            const idade = document.getElementById('idade').value;
+            const patente = document.getElementById('patente').value;
+            const funcao = document.getElementById('funcao').value;
+            const horas = document.getElementById('horas').value;
+            const experiencia = document.getElementById('experiencia').value;
+            const estilo = document.getElementById('estilo').value;
+
+            // Formata a mensagem para o WhatsApp (usando %0A para quebra de linha)
+            const mensagem = `*FICHA DE RECRUTAMENTO - TROPA CLN ACADEMY*%0A%0A`
+                + `*Nick:* ${nick}%0A`
+                + `*ID:* ${idJogador}%0A`
+                + `*Idade:* ${idade} anos%0A`
+                + `*Patente:* ${patente}%0A`
+                + `*Função:* ${funcao}%0A`
+                + `*Horas diárias:* ${horas}h%0A`
+                + `*Experiência:* ${experiencia}%0A`
+                + `*Estilo de jogo:* ${estilo}`;
+
+            // Número do recrutador
+            const numeroTelefone = "5551981392606"; 
+
+            // Redireciona para o link do WhatsApp
+            const urlWhatsApp = `https://wa.me/${numeroTelefone}?text=${mensagem}`;
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
+</body>
+</html>
+J21A5GOY8ssP0qdWRaBmCZSP3Z7tODpJL01vdZbEHZhPBCk/exec
